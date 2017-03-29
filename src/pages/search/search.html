@@ -5,9 +5,39 @@
     </button>
     <ion-title>{{title}}</ion-title>
   </ion-navbar>
+  <ion-toolbar>
+    <div class="item-input-wrapper search-input">
+      <ion-icon name="search" item-left></ion-icon>
+      <ion-input autofocus type="text" name="search" placeholder=" Search stocks..."
+        [(ngModel)]="searchQuery" 
+        (ngModelChange)="search()"
+        [ngClass]="searchQuery?.length <= 4 && searchQuery?.length > 0 ? 'text-uppercase' : 'text-capitalize'"></ion-input>
+      <button ion-button item-right (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
+ 
+  <div class="row row-center" ng-show="searchQuery" ng-hide="searchResults || !searchQuery">
+    <div class="col">
+      <ion-spinner class="spinner-light margin-auto" icon="ripple"></ion-spinner>
+    </div>
+  </div>
 
+  <div class="row row-center" ng-if="searchQuery && searchResults" ng-hide="searchResults?.length != 0">
+    <div class="col">
+      <h5 class="light text-align-center">No Results.</h5>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-item class="item-dark border-none" ng-repeat="result in searchResults" ng-click="goToStock(result?.symbol)">
+      <h3 class="light">{{result?.symbol}} <span class="font-normal"> — {{result?.name}}</span></h3>
+      <h6 class="light">{{result?.exchDisp}}</h6>
+    </ion-item>
+  </ion-list>
 </ion-content>

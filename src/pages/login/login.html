@@ -5,8 +5,25 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Login</ion-title>
+    <button ion-button item-right (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+
+  <form (ngSubmit)="login(user, false)">
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email" name="email" placeholder=" Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password"[(ngModel)]="user.password" name="password" placeholder=" Password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button block ion-button type="submit" block>Log In</button>
+    </ion-item>
+  </form>
 
 </ion-content>
